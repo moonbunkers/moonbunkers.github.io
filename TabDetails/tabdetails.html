@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help 'n Hero</title>
+    <link rel="stylesheet" href="../Account/account.css"> <!-- Link to CSS -->
+</head>
+
+<body>
+    <div id="maxpage">
+    <div id="menu">
+        <a href="../Account/account.html">Account</a>
+        <a href="../Home/home.html">Home</a>
+        <a href="../Contact/contact.html">Contact</a>
+        <a href="../Suggestions/suggestions.html">Suggestions</a>
+    </div>
+
+      <div id="banner">
+        <img class="hnhlogo" src="../Help and hero logo.png">
+      </div>
+      </div>
+
+    <div id="boxtitle">
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+            let tabdata = JSON.parse(localStorage.getItem("selectedTab"));
+            document.getElementById("boxtitle").innerText = tabdata.title;
+        });
+        </script>
+    </div>
+
+    <div id="boxdescription">
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+            let tabdata = JSON.parse(localStorage.getItem("selectedTab"));
+            document.getElementById("boxdescription").innerText = tabdata.description;
+            });
+        </script>
+    </div>
+
+    <div id="imagebox"></div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+    let currentImageIndex = 0;
+    let tabData = JSON.parse(localStorage.getItem("selectedTab"));
+    let imagebox = document.getElementById("imagebox");
+    let imageamount = tabData && tabData.images ? tabData.images.length : 0;
+    let imageFractionElement = document.getElementById("imagefraction");
+
+
+    let defaultImage = "../Help and hero logo.png";
+
+    if (imageamount > 0) {
+        let imgElement = document.createElement("img");
+        imgElement.src = tabData.images[currentImageIndex];
+        imgElement.alt = "Tab Image";
+        imgElement.style.objectFit = "contain";
+        imgElement.id = "currentImage";
+        imagebox.appendChild(imgElement);
+        adjustImagetabdetails(imgElement);
+    } else {
+        let imgElement = document.createElement("img");
+        imgElement.src = defaultImage;
+        imgElement.alt = "Default Image";
+        imgElement.style.objectFit = "contain";
+        imgElement.id = "currentImage";
+        imagebox.appendChild(imgElement);
+    }
+
+    if (imageamount > 0) {
+    imageFractionElement.innerText = (currentImageIndex + 1) + " / " + imageamount;
+    } else {imageFractionElement.innerText = "1/1"}
+
+    document.getElementById("imagescrollL").addEventListener("click", function () {
+        if (imageamount === 0) return; // ✅ Prevent switching when no images exist
+
+        currentImageIndex = (currentImageIndex + 1) % imageamount;
+        let imgElement = document.getElementById("currentImage");
+        if (imgElement) {
+            imgElement.src = tabData.images[currentImageIndex];
+            adjustImagetabdetails(imgElement);
+            document.getElementById("imagefraction").innerText = (currentImageIndex + 1) + " / " + imageamount;
+        }
+    });
+
+    document.getElementById("imagescrollR").addEventListener("click", function () {
+        if (imageamount === 0) return; // ✅ Prevent switching when no images exist
+
+        currentImageIndex = (currentImageIndex - 1 + imageamount) % imageamount;
+        let imgElement = document.getElementById("currentImage");
+        imgElement.src = tabData.images[currentImageIndex];
+        document.getElementById("imagefraction").innerText = (currentImageIndex + 1) + " / " + imageamount;
+    });
+});
+        
+         function adjustImagetabdetails(imageElement) {
+            imageElement.onload = function () {
+                let originalWidth = imageElement.naturalWidth;
+                let originalHeight = imageElement.naturalHeight;
+                let aspectRatio = originalHeight / originalWidth;
+        
+                // ✅ Set max width and height dynamically using CSS calc() equivalent
+                let maxWidth = (window.innerWidth - 190) * (3 / 8) - 20;
+                let maxHeight = window.innerHeight - 240;
+        
+                if (aspectRatio > 1) {
+                    // ✅ If the image is taller than wide, fix height and adjust width
+                    imageElement.style.height = maxHeight + "px";
+                    imageElement.style.width = (maxHeight / aspectRatio) + "px";
+                } else {
+                    // ✅ If the image is wider than tall, fix width and adjust height
+                    imageElement.style.width = maxWidth + "px";
+                    imageElement.style.height = (maxWidth * aspectRatio) + "px";
+                }
+            };
+        };
+    </script>
+
+    <div id="imagefraction">
+    </div>
+
+    <div>
+        <button id="imagescrollL"> > </button>
+        <button id="imagescrollR"> < </button>
+    </div>
+
+    <div id="boxdlong">
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+            let tabdata = JSON.parse(localStorage.getItem("selectedTab"));
+            document.getElementById("boxdlong").innerText = tabdata.dlong || "No more information!";
+            });
+        </script>
+    </div>
+    <div>
+    <button id="editAd">
+        Edit Ad
+        <script>
+            document.getElementById("editAd").addEventListener("click", function () {
+            let selectedTab = JSON.parse(localStorage.getItem("selectedTab"));
+            localStorage.setItem("editingAd", JSON.stringify(selectedTab));
+            window.location.href = "editAd.html";
+        });
+        </script>
+    </button>
+    </div>
+
+    <script src="../Home/home.js"></script> <!-- Link to JS -->
+
+</body>
+</html>

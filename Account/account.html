@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help 'n Hero</title>
+    <style>
+        .hnhlogo {
+            width: 200px;
+            height: auto; /* Keeps aspect ratio */
+            margin-left: -20px;
+            margin-top: -20px;
+        }
+      </style>
+    <link rel="stylesheet" href="account.css"> <!-- Link to CSS -->
+</head>
+
+<body>
+
+  <div>
+    <button class="add-tab-button1" onclick="redirectTo('../Account/new tab/newtab.html')">Click here to ask for Help!</button>
+    <script src="../Account/account.css"></script>
+    <script src="../Home/home.js"></script>
+  </div>
+
+  <div id="addTabButton2">
+    <button class="add-tab-button2" onclick="redirectTo('../Account/new tab2/newtab2.html')">Click here to be a Hero!</button>
+    <script src="../Account/account.css"></script>
+    <script src="../Home/home.js"></script>
+  </div>
+
+  <div id="page5">
+    <div id="menu">
+        <a href="#" onclick="redirectTo('account.html')">Account</a>
+        <a href="../Home/home.html">Home</a>
+        <a href="../Contact/contact.html">Contact</a>
+        <a href="../Suggestions/suggestions.html">Suggestions</a>
+        <script src="account.js"></script>
+    </div>
+  </div>
+
+  <div id="banner">
+
+    <div id="page7">
+      <img class="hnhlogo" src="../Help and hero logo.png">
+    </div>
+
+    <div id="messages">
+      
+    </div>  
+
+  <script src="account.js"></script> <!-- Link to JS -->
+</body>
+
+<body>
+  <div id="tabWrapper1">
+    <div id="page7">
+    <h2 id="tabHeader">Your 'Help!' Ads:</h2> 
+    </div>
+      <div id="tabContainer1">
+        <!--these are the different shown ads-->
+        <script src="../Home/home.js"></script>
+      </div>
+</div>
+
+<div id="tabWrapper2">
+  <div id="page7">
+  <h2 id="tabHeader">Your 'Hero!' Ads:</h2> 
+  </div>
+    <div id="tabContainer2">
+      <!--these are the different shown ads-->
+      <script src="../Home/home.js"></script>
+    </div>
+</div>
+</body>
+</html>

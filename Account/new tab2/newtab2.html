@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help 'n Hero</title>
+    <style>
+      .hnhlogo {
+          width: 200px;
+          height: auto; /* Keeps aspect ratio */
+          margin-left: -20px;
+          margin-top: -20px;
+      }
+
+      .randombox {
+        width: 130px;
+        height: 125px;
+        background: white;
+        outline: 2px black;
+        padding: 10px;
+        margin-right: 10px;
+        flex: 0 0 auto;
+        font-size: 20px;
+        font-weight: bold;
+        color: black;
+        overflow-wrap: break-word;
+        white-space: normal;
+      }
+
+    </style>
+    <link rel="stylesheet" href="../account.css"> <!-- Link to CSS -->
+</head>
+
+<body>
+  <div id="page5">
+    <div id="menu">
+        <a href="/Account/account.html">Account</a>
+        <a href="/Home/home.html">Home</a>
+        <a href="/Contact/contact.html">Contact</a>
+        <a href="/Suggestions/suggestions.html">Suggestions</a>
+    </div>
+  </div>
+
+    <div id="banner">
+
+      <div id="page7">
+        <img class="hnhlogo" src="/Help and hero logo.png">
+      </div>
+    </div>
+
+    <div class="textdlong">
+        <textarea placeholder="I need Help with..." id="tabDlong"></textarea>
+    </div>
+
+    <div class="texttitle">
+        <textarea placeholder="Write a title here!" id="tabTitle"></textarea>
+    </div>
+
+    <div class="textdescription">
+        <textarea placeholder="This is what people will first see" id="tabDescription"></textarea>
+    </div>
+
+    <div>
+        <button  id="createTab" onclick="createAd('tabContainer2')">Create</button>
+    </div>
+
+    <div id="imageupload">
+      <button class="randombox" onclick="addImage()"> Select Images Here! </button>
+    </div>
+
+    <div>
+        <button id="backButton" onclick="redirectTo('../account.html')">Back</button>
+    </div>
+
+    <script src="/Home/home.js"></script> <!-- Link to JS -->   
+</body>
+</html>

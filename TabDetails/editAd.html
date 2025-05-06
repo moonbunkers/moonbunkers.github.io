@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help 'n Hero</title>
+    <style>
+      .hnhlogo {
+          width: 200px;
+          height: auto; /* Keeps aspect ratio */
+          margin-left: -20px;
+          margin-top: -20px;
+      }
+
+      .randombox {
+        width: 130px;
+        height: 125px;
+        background: white;
+        outline: 2px black;
+        padding: 10px;
+        margin-right: 10px;
+        flex: 0 0 auto;
+        font-size: 20px;
+        font-weight: bold;
+        color: black;
+        overflow-wrap: break-word;
+        white-space: normal;
+      }
+
+    </style>
+    <link rel="stylesheet" href="../Account/account.css"> <!-- Link to CSS -->
+</head>
+
+<body>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+    let editingAd = JSON.parse(localStorage.getItem("editingAd"));
+
+    if (editingAd) {
+        document.getElementById("tabTitle").value = editingAd.title;
+        document.getElementById("tabDescription").value = editingAd.description;
+        document.getElementById("tabDlong").value = editingAd.dlong || "";
+        document.getElementById("imageupload").src = editingAd.images;
+    }
+});
+document.getElementById("backButton").addEventListener("click", function () {
+    let selectedTab = JSON.parse(localStorage.getItem("selectedTab"));
+    if (!selectedTab) {
+        console.log("No selected tab found");
+    } else {
+            redirectTo("../TabDetails/tabdetails.html");
+    };
+});
+    </script>
+  <div id="page5">
+    <div id="menu">
+        <a href="/Account/account.html">Account</a>
+        <a href="/Home/home.html">Home</a>
+        <a href="/Contact/contact.html">Contact</a>
+        <a href="/Suggestions/suggestions.html">Suggestions</a>
+    </div>
+  </div>
+
+    <div id="banner">
+
+      <div id="page7">
+        <img class="hnhlogo" src="/Help and hero logo.png">
+      </div>
+    </div>
+
+    <div class="textdlong">
+        <textarea placeholder= "Short description" id= "tabDlong"></textarea>
+    </div>
+
+    <div class="texttitle">
+        <textarea placeholder="Write a title here!" id="tabTitle"> </textarea>
+    </div>
+
+    <div class="textdescription">
+        <textarea placeholder="This is what people will first see" id="tabDescription"> </textarea>
+    </div>
+
+    <div>
+        <button  id="createTab">Finish
+            <script>
+                document.getElementById("createTab").addEventListener("click", function () {
+                console.log("Button clicked! Updating tab...");
+            
+                // ✅ Step 1: Retrieve selected tab data
+                let selectedTab = JSON.parse(localStorage.getItem("selectedTab"));
+            
+                // ✅ Step 2: Retrieve the container from localStorage
+                let containerId = selectedTab.containerId;
+                let savedTabs = JSON.parse(localStorage.getItem(containerId)) || [];
+            
+                // ✅ Step 3: Find and update the existing tab in the container
+                let tabIndex = savedTabs.findIndex(tab => tab.title === selectedTab.title);
+            
+                // ✅ Overwrite the existing tab’s data with new edited values
+                savedTabs[tabIndex].title = document.getElementById("tabTitle").value.trim();
+                savedTabs[tabIndex].description = document.getElementById("tabDescription").value.trim();
+                savedTabs[tabIndex].dlong = document.getElementById("tabDlong").value.trim();
+            
+                // ✅ Update images
+                let imageContainers = document.querySelectorAll("#imageupload .imagecontainer img");
+                savedTabs[tabIndex].images = imageContainers.length > 0
+                    ? Array.from(imageContainers).map(img => img.src)
+                    : ["../../Help and hero logo.png"]; // ✅ Default fallback image
+            
+                // ✅ Step 4: Save the updated container back to localStorage
+                localStorage.setItem(containerId, JSON.stringify(savedTabs));
+            
+                console.log("Tab successfully updated!", savedTabs[tabIndex]);
+            
+                // ✅ Redirect back to tab details page
+                window.location.href = "../Account/account.html";
+            });
+            </script>
+        </button>
+    </div>
+
+    <div id="imageupload">
+        <script>
+document.addEventListener("DOMContentLoaded", function () {
+    let tabData = JSON.parse(localStorage.getItem("selectedTab"));
+    let imageUploadDiv = document.getElementById("imageupload");
+
+    if (!tabData || !tabData.images || tabData.images.length === 0) {
+        console.log("No images found in selected tab.");
+        return;
+    }
+
+    // ✅ Loop through images and wrap each in an imagecontainer
+    tabData.images.forEach(imageSrc => {
+        // Create a wrapper container
+        let imageContainer = document.createElement("div");
+        imageContainer.classList.add("imagecontainer");
+
+        // Create the image element
+        let imgElement = document.createElement("img");
+        imgElement.src = imageSrc;
+        imgElement.alt = "Uploaded Image";
+        imgElement.style.width = "100px";  // ✅ Set a fixed width for display
+        imgElement.style.margin = "5px";   // ✅ Add spacing between images
+
+        // Append image inside container, then container inside upload div
+        imageContainer.appendChild(imgElement);
+        imageUploadDiv.appendChild(imageContainer);
+    });
+});
+        </script>
+      <button class="randombox" onclick="addImage()">Select Images Here!</button>
+    </div>
+
+    <div>
+        <button id="backButton" onclick="redirectTo('../Account/account.html')">Cancel</button>
+    </div>
+
+    <script src="../Home/home.js"></script> <!-- Link to JS -->
+
+</body>
+</html>
